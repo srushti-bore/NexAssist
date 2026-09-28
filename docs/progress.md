@@ -133,5 +133,32 @@ The **NexAssist** (formerly AI IT Helpdesk) enterprise technical operations plat
 
 ### D. Quality Assurance & Validation
 - `flutter analyze lib`: **0 issues found** (Clean).
-- `flutter test`: **11/11 tests passed** (including Design System token compliance, model deserialization, widget interactions, and responsive layout tests).
+- `flutter test`: **12/12 tests passed** (including Design System token compliance, model deserialization, widget interactions, responsive layout, and DownloadAppsDialog tests).
 - Automated continuous delivery verified via Vercel GitHub integration on `main` branch.
+
+---
+
+## 7. Native App Downloads Delivery (.exe & .apk) — 28 September 2026
+
+### A. Direct 1-Tap Client Downloads
+- **Interactive UI Modal:** Built [`download_apps_dialog.dart`](file:///d:/NexAssist/client/lib/shared/widgets/download_apps_dialog.dart) featuring dedicated cards for:
+  - **Windows Desktop Client (.exe):** `NexAssist-Setup.exe` (10.7 MB, 64-bit standalone installer).
+  - **Android Mobile Package (.apk):** `NexAssist-Android.apk` (52.2 MB, ARM64 & x86_64 package).
+- **Top-Right Header Access:**
+  - Integrated a sleek `"Download Apps"` action trigger on the Top Global Bar in [`responsive_layout.dart`](file:///d:/NexAssist/client/lib/shared/widgets/responsive_layout.dart) for Desktop/Web.
+  - Added dedicated download action buttons in Mobile AppBar and Tablet Navigation Rail.
+  - Added quick-access download button in the top-right header tray of [`dashboard_screen.dart`](file:///d:/NexAssist/client/lib/features/dashboard/dashboard_screen.dart).
+
+### B. Dual-Channel Static & API Distribution
+- **Web Static Hosting:** Placed binaries in [`client/web/downloads/`](file:///d:/NexAssist/client/web/downloads) for direct, zero-proxy browser downloads on Vercel (`/downloads/NexAssist-Setup.exe` and `/downloads/NexAssist-Android.apk`).
+- **Backend API Endpoints:** Implemented [`backend/api/v1/downloads/routes.py`](file:///d:/NexAssist/backend/api/v1/downloads/routes.py) with endpoints:
+  - `GET /api/v1/downloads/info` (Metadata, file size, availability).
+  - `GET /api/v1/downloads/windows` (FileResponse stream for `.exe`).
+  - `GET /api/v1/downloads/android` (FileResponse stream for `.apk`).
+- **Static Asset Mount:** Mounted `/static` directory in [`backend/main.py`](file:///d:/NexAssist/backend/main.py).
+
+### C. Testing & Verification
+- `flutter analyze lib`: **0 issues found** (Clean).
+- `flutter test`: **12/12 tests passed** (including `download_apps_dialog_test.dart`).
+- `pytest backend/tests/unit/test_downloads.py`: **3/3 passed**.
+

@@ -7,6 +7,7 @@ import 'package:it_helpdesk_client/shared/api_client.dart';
 import 'package:it_helpdesk_client/shared/constants/app_colors.dart';
 import 'package:it_helpdesk_client/shared/constants/app_spacing.dart';
 import 'package:it_helpdesk_client/shared/models/case_model.dart';
+import 'package:it_helpdesk_client/shared/widgets/download_apps_dialog.dart';
 import 'package:it_helpdesk_client/shared/widgets/gsap_motion.dart';
 import 'package:it_helpdesk_client/shared/widgets/interactive_card.dart';
 import 'package:it_helpdesk_client/shared/widgets/liquid_glass_panel.dart';
@@ -127,10 +128,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 ],
                               ),
                             ),
-                            ElevatedButton.icon(
-                              icon: const Icon(Icons.add_rounded, size: 16),
-                              label: const Text('New Ticket'),
-                              onPressed: () => context.go('/cases/create'),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                OutlinedButton.icon(
+                                  icon: const Icon(Icons.download_rounded, size: 16),
+                                  label: const Text('Download Apps'),
+                                  onPressed: () => DownloadAppsDialog.show(context),
+                                  style: OutlinedButton.styleFrom(
+                                    foregroundColor: context.textPrimary,
+                                    side: BorderSide(color: context.borderColor),
+                                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 10),
+                                  ),
+                                ),
+                                const SizedBox(width: AppSpacing.sm),
+                                ElevatedButton.icon(
+                                  icon: const Icon(Icons.add_rounded, size: 16),
+                                  label: const Text('New Ticket'),
+                                  onPressed: () => context.go('/cases/create'),
+                                ),
+                              ],
                             ),
                           ],
                         ),

@@ -37,4 +37,19 @@ class AppConstants {
   static const String keyRefreshToken = 'it_helpdesk_refresh_token';
   static const String keyUserData = 'it_helpdesk_user_data';
   static const String keyThemeMode = 'it_helpdesk_theme_mode';
+
+  // App Download Links (.exe for Desktop, .apk for Android)
+  static String get windowsDownloadUrl {
+    if (kIsWeb) {
+      return '/downloads/NexAssist-Setup.exe';
+    }
+    return '$defaultApiBaseUrl/downloads/windows';
+  }
+
+  static String get androidDownloadUrl {
+    if (kIsWeb) {
+      return '/downloads/NexAssist-Android.apk';
+    }
+    return '$defaultApiBaseUrl/downloads/android';
+  }
 }

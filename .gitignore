@@ -14,8 +14,10 @@ __pycache__/
 build/
 develop-eggs/
 dist/
-downloads/
 eggs/
+!backend/api/v1/downloads/
+!client/web/downloads/
+!backend/static/downloads/
 /lib/
 /lib64/
 parts/

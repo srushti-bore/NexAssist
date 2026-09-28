@@ -46,6 +46,14 @@
 - **Context:** Theme mode toggle on the login page introduced unnecessary visual noise prior to authentication.
 - **Resolution:** Removed mode toggle from the login card and placed it cleanly in the post-login application header, desktop top bar, mobile app bar, and tablet rail within `ResponsiveLayout`.
 
+### H. Multiplatform Binary Distribution (.exe & .apk)
+- **Context:** Users needed a functional, 1-tap download option for the standalone Windows desktop installer (`.exe`) and Android application (`.apk`) directly from the authenticated dashboard.
+- **Resolution:**
+  1. Generated release binaries: Windows installer `NexAssist-Setup.exe` (10.7 MB) and Android package `NexAssist-Android.apk` (52.2 MB).
+  2. Placed static binaries in `client/web/downloads/` for direct, browser-native downloads on Vercel.
+  3. Implemented backend stream endpoints (`/api/v1/downloads/windows`, `/api/v1/downloads/android`, and `/api/v1/downloads/info`) in FastAPI.
+  4. Built `DownloadAppsDialog` interactive modal and linked it to the top-right header tray across Desktop Top Bar, Mobile AppBar, Tablet Rail, and Dashboard Screen header.
+
 ---
 
 ## 2. Active Technical Debt & Planned Improvements

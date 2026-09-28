@@ -81,6 +81,12 @@ def create_application() -> FastAPI:
     # Mount API v1 router
     app.include_router(api_v1_router, prefix=settings.API_V1_STR)
 
+    # Mount static files if directory exists
+    static_dir = Path(__file__).resolve().parent / "static"
+    if static_dir.exists():
+        from fastapi.staticfiles import StaticFiles
+        app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
     return app
 
 

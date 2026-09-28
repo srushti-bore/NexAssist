@@ -5,6 +5,7 @@ import 'package:it_helpdesk_client/features/auth/auth_controller.dart';
 import 'package:it_helpdesk_client/shared/constants/app_colors.dart';
 import 'package:it_helpdesk_client/shared/constants/app_spacing.dart';
 import 'package:it_helpdesk_client/shared/theme_controller.dart';
+import 'package:it_helpdesk_client/shared/widgets/download_apps_dialog.dart';
 import 'package:it_helpdesk_client/shared/widgets/notification_panel.dart';
 import 'package:provider/provider.dart';
 
@@ -96,6 +97,16 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
             ],
           ),
           actions: [
+            // Download Native Apps Button (.exe & .apk)
+            IconButton(
+              icon: Icon(
+                Icons.download_rounded,
+                size: 20,
+                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
+              ),
+              tooltip: 'Download Apps (.exe / .apk)',
+              onPressed: () => DownloadAppsDialog.show(context),
+            ),
             // Theme Mode Toggle Button
             IconButton(
               icon: Icon(
@@ -272,6 +283,17 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
                         onTap: () => _onNavigate(context, 3),
                       ),
                       const Spacer(),
+                      // Download Apps Button (.exe & .apk)
+                      IconButton(
+                        icon: Icon(
+                          Icons.download_rounded,
+                          size: 20,
+                          color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
+                        ),
+                        tooltip: 'Download Apps (.exe / .apk)',
+                        onPressed: () => DownloadAppsDialog.show(context),
+                      ),
+                      const SizedBox(height: AppSpacing.xs),
                       // Theme toggle
                       IconButton(
                         icon: Icon(
@@ -570,6 +592,36 @@ class _ResponsiveLayoutState extends State<ResponsiveLayout> {
                             ),
                           ),
                           const SizedBox(width: AppSpacing.md),
+
+                          // Download Native Apps Button (.exe & .apk)
+                          InkWell(
+                            onTap: () => DownloadAppsDialog.show(context),
+                            borderRadius: BorderRadius.circular(AppRadius.sm),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: isDark ? AppColors.cardDark : AppColors.surfaceSecondary,
+                                border: Border.all(color: borderColor),
+                                borderRadius: BorderRadius.circular(AppRadius.sm),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.download_rounded, size: 16, color: AppColors.primary),
+                                  const SizedBox(width: 6),
+                                  Text(
+                                    'Download Apps',
+                                    style: GoogleFonts.publicSans(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: AppSpacing.sm),
 
                           // Theme Toggle Button (Light / Dark mode switcher)
                           InkWell(
