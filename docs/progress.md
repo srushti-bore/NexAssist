@@ -162,3 +162,26 @@ The **NexAssist** (formerly AI IT Helpdesk) enterprise technical operations plat
 - `flutter test`: **12/12 tests passed** (including `download_apps_dialog_test.dart`).
 - `pytest backend/tests/unit/test_downloads.py`: **3/3 passed**.
 
+---
+
+## 8. Mobile UI/UX Header Responsiveness & Platform Branding — 28 September 2026
+
+### A. Mobile Header Layout Squishing Resolution
+- **Problem Statement:** On mobile phone viewports (<600px, e.g., 360px–390px), the dashboard screen header laid out the title and both action buttons ("Download Apps" and "New Ticket", ~290px combined width) inside a single horizontal `Row`. The `Expanded` title was compressed to ~38px width, causing severe word-wrapping where "Operator Queue" broke into 2-letter vertical lines (*"Op / era / tor / Qu / eue"*).
+- **Implementation:**
+  - Integrated `AppBreakpoints.mobile` responsive detection in [`client/lib/features/dashboard/dashboard_screen.dart`](file:///d:/NexAssist/client/lib/features/dashboard/dashboard_screen.dart).
+  - **Mobile (< 600px):** Title and subtitle render full-width on top with the action buttons placed underneath in an adaptive 50%/50% side-by-side row (`Expanded` button wrappers with streamlined padding).
+  - **Desktop/Tablet (≥ 600px):** Preserves the horizontal row format with right-aligned action buttons.
+
+### B. Standardized NexAssist App Naming
+- **Android:** Updated `android:label="NexAssist"` in [`client/android/app/src/main/AndroidManifest.xml`](file:///d:/NexAssist/client/android/app/src/main/AndroidManifest.xml).
+- **Windows Desktop:** Updated window title to `"NexAssist"` in [`client/windows/runner/main.cpp`](file:///d:/NexAssist/client/windows/runner/main.cpp) and binary product info in [`client/windows/runner/Runner.rc`](file:///d:/NexAssist/client/windows/runner/Runner.rc).
+- **Web & PWA:** Verified [`client/web/manifest.json`](file:///d:/NexAssist/client/web/manifest.json) and [`client/web/index.html`](file:///d:/NexAssist/client/web/index.html) use `"NexAssist"`.
+- **Release APK Rebuild:** Rebuilt release package (`flutter build apk --release`) and synced updated binaries to `client/web/downloads/NexAssist-Android.apk` and `backend/static/downloads/NexAssist-Android.apk`.
+
+### C. Testing, Quality & Deployment
+- `flutter analyze lib`: **0 issues found** (Clean).
+- `flutter test`: **12/12 tests passed** (100% pass rate).
+- Production branch `main` updated and pushed to trigger live Vercel and Render deployments.
+
+

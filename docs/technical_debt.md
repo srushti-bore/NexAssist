@@ -1,6 +1,6 @@
 # NexAssist - Technical Debt & Architectural Resolutions
 
-**Last Updated:** 24 September 2026  
+**Last Updated:** 28 September 2026  
 **Status:** Managed / Production-Ready
 
 ---
@@ -53,6 +53,13 @@
   2. Placed static binaries in `client/web/downloads/` for direct, browser-native downloads on Vercel.
   3. Implemented backend stream endpoints (`/api/v1/downloads/windows`, `/api/v1/downloads/android`, and `/api/v1/downloads/info`) in FastAPI.
   4. Built `DownloadAppsDialog` interactive modal and linked it to the top-right header tray across Desktop Top Bar, Mobile AppBar, Tablet Rail, and Dashboard Screen header.
+
+### I. Mobile Screen Header Compression & Text Wrapping in Multi-Button Rows
+- **Context:** On mobile viewports (<600px width), placing multiple action buttons inside a horizontal `Row` alongside an `Expanded` title left insufficient horizontal space (~38px), squeezing the text title and breaking multi-word headers vertically (*"Op / era / tor / Qu / eue"*).
+- **Resolution:**
+  1. Refactored `DashboardScreen` header to use `AppBreakpoints.mobile` (600px breakpoint).
+  2. Implemented a stacked column layout on mobile where the title takes full width, and the action buttons are aligned side-by-side below with 50%/50% width distribution.
+  3. Preserved desktop horizontal layout for viewports ≥ 600px.
 
 ---
 
