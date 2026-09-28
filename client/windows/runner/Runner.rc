@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "it_helpdesk_client" "\0"
+            VALUE "CompanyName", "NexAssist Enterprise Systems" "\0"
+            VALUE "FileDescription", "NexAssist - Enterprise AI IT Operations" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "it_helpdesk_client" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "it_helpdesk_client.exe" "\0"
-            VALUE "ProductName", "it_helpdesk_client" "\0"
+            VALUE "InternalName", "NexAssist" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 NexAssist Enterprise Systems. All rights reserved." "\0"
+            VALUE "OriginalFilename", "NexAssist.exe" "\0"
+            VALUE "ProductName", "NexAssist" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

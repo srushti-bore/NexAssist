@@ -80,6 +80,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final auth = context.watch<AuthController>();
     final user = auth.currentUser;
     final isOperatorOrAdmin = user?.role == 'operator' || user?.role == 'team_lead' || user?.role == 'admin' || user?.role == 'manager';
+    final width = MediaQuery.sizeOf(context).width;
+    final isMobile = width < AppBreakpoints.mobile;
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -98,18 +100,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       // Header Greeting & Context
                       GSAPFadeSlide(
                         direction: SlideDirection.down,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Column(
+                        child: isMobile
+                            ? Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     isOperatorOrAdmin ? 'Operator Queue' : 'IT Service Desk',
                                     style: GoogleFonts.spaceGrotesk(
-                                      fontSize: 26,
+                                      fontSize: 24,
                                       fontWeight: FontWeight.w600,
                                       color: context.textPrimary,
                                       letterSpacing: -0.5,
@@ -125,32 +123,90 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                       color: context.textSecondary,
                                     ),
                                   ),
+                                  const SizedBox(height: AppSpacing.md),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: OutlinedButton.icon(
+                                          icon: const Icon(Icons.download_rounded, size: 16),
+                                          label: const Text('Download Apps'),
+                                          onPressed: () => DownloadAppsDialog.show(context),
+                                          style: OutlinedButton.styleFrom(
+                                            foregroundColor: context.textPrimary,
+                                            side: BorderSide(color: context.borderColor),
+                                            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs, vertical: 10),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: AppSpacing.sm),
+                                      Expanded(
+                                        child: ElevatedButton.icon(
+                                          icon: const Icon(Icons.add_rounded, size: 16),
+                                          label: const Text('New Ticket'),
+                                          onPressed: () => context.go('/cases/create'),
+                                          style: ElevatedButton.styleFrom(
+                                            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs, vertical: 10),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          isOperatorOrAdmin ? 'Operator Queue' : 'IT Service Desk',
+                                          style: GoogleFonts.spaceGrotesk(
+                                            fontSize: 26,
+                                            fontWeight: FontWeight.w600,
+                                            color: context.textPrimary,
+                                            letterSpacing: -0.5,
+                                          ),
+                                        ),
+                                        const SizedBox(height: AppSpacing.xs),
+                                        Text(
+                                          isOperatorOrAdmin
+                                              ? 'Active fleet triage and ticket SLA orchestration'
+                                              : 'Assistance, equipment, and automated operations',
+                                          style: GoogleFonts.publicSans(
+                                            fontSize: 13,
+                                            color: context.textSecondary,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(width: AppSpacing.md),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      OutlinedButton.icon(
+                                        icon: const Icon(Icons.download_rounded, size: 16),
+                                        label: const Text('Download Apps'),
+                                        onPressed: () => DownloadAppsDialog.show(context),
+                                        style: OutlinedButton.styleFrom(
+                                          foregroundColor: context.textPrimary,
+                                          side: BorderSide(color: context.borderColor),
+                                          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 10),
+                                        ),
+                                      ),
+                                      const SizedBox(width: AppSpacing.sm),
+                                      ElevatedButton.icon(
+                                        icon: const Icon(Icons.add_rounded, size: 16),
+                                        label: const Text('New Ticket'),
+                                        onPressed: () => context.go('/cases/create'),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                OutlinedButton.icon(
-                                  icon: const Icon(Icons.download_rounded, size: 16),
-                                  label: const Text('Download Apps'),
-                                  onPressed: () => DownloadAppsDialog.show(context),
-                                  style: OutlinedButton.styleFrom(
-                                    foregroundColor: context.textPrimary,
-                                    side: BorderSide(color: context.borderColor),
-                                    padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 10),
-                                  ),
-                                ),
-                                const SizedBox(width: AppSpacing.sm),
-                                ElevatedButton.icon(
-                                  icon: const Icon(Icons.add_rounded, size: 16),
-                                  label: const Text('New Ticket'),
-                                  onPressed: () => context.go('/cases/create'),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
                       ),
                       const SizedBox(height: AppSpacing.xl),
 
